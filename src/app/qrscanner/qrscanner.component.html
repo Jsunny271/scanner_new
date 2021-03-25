@@ -1,0 +1,13 @@
+<div class="qrContainer" >
+    <h1>BOSCH Go!</h1>
+    <qr-scanner
+            [debug]="false"
+            [canvasWidth]=canvasW
+            [canvasHeight]=canvasH
+            [stopAfterScan]="false" 
+            [updateTime]="500"
+            id="qrscan"> 
+    </qr-scanner>
+    <h4>{{resultView}}</h4>
+<p>Barcode scanner</p>
+    </div>

@@ -1,0 +1,30 @@
+.qrContainer{
+    background:white;
+    padding: 3.5em;
+    width: 40%;
+    position: fixed;
+    height: 60%;
+    left: 40%;
+    margin-left: -25%;
+    border-radius: 20px;
+    box-shadow: 5px 10px lightgrey;
+    vertical-align: auto;
+    margin-top: 2%;
+
+}
+
+h1{
+    margin-left: 20%;
+    margin-bottom: 40px;
+}
+
+#qrscan{
+    border-radius: 20px;
+    box-shadow: 5px 10px black;
+    border: 4px;
+}
+
+p{
+    margin-top: 30px;
+    margin-left: 30%;
+}

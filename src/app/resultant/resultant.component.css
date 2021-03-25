@@ -1,0 +1,37 @@
+.resultantContainer{
+    background:white;
+    padding: 3.5em;
+    width: 40%;
+    position: fixed;
+    height: 60%;
+    left: 50%;
+    margin-left: -25%;
+    border-radius: 20px;
+    box-shadow: 5px 10px lightgrey;
+    vertical-align: auto;
+    margin-top: 2%;
+}
+
+#scanAgain{
+    width: 100px;
+    text-align: center;
+    text-shadow: black;
+    margin-top: 10%;
+    margin-left: 30%;
+    background-color:lightskyblue;
+    height: 50px;
+    font-size: 13px;
+    border-radius: 10px;
+}
+
+h1{
+    margin-left: 20%;
+}
+
+p{
+    margin-top: 30px;
+}
+
+h4{
+    margin-top: 20px;
+}
