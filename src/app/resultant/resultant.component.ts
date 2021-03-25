@@ -20,7 +20,9 @@ export class ResultantComponent implements OnInit {
     (async () => { 
       // Do something before delay
       console.log('before delay')
-      this.outputView=this.sharedService.getMessage();
+      this.outputView=this.sharedService.getMessage().resultData;
+      console.log(this.sharedService.getMessage().camSharedData);
+      console.log(this.sharedService.getMessage().camSharedValue);
       await this.delay(3000);
       // Do something after
       console.log('after delay')

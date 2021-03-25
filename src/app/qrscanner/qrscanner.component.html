@@ -1,4 +1,4 @@
-<div class="qrContainer" >
+<div *ngIf="changeCameraView" class="qrContainer" >
     <h1>BOSCH Go!</h1>
     <qr-scanner
             [debug]="false"
@@ -8,6 +8,11 @@
             [updateTime]="500"
             id="qrscan"> 
     </qr-scanner>
+    <button (click)="changeCam()" id="changeCam">Change</button>
     <h4>{{resultView}}</h4>
-<p>Barcode scanner</p>
     </div>
+
+<div *ngIf="!changeCameraView" class="qrContainer">
+     <h3>Please wait...</h3>
+</div>
+
