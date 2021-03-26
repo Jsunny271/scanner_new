@@ -122,7 +122,11 @@ export class QrscannerComponent implements OnInit {
         }else{
         this.router.navigate(['/resultant']);
         }
-    }); 
+        (async () => { 
+            await this.delay(1000);
+            this.resultView="";
+        })(); 
+    });
     }
 
     changeCam(){
@@ -146,7 +150,6 @@ export class QrscannerComponent implements OnInit {
         this.changeCameraView=true;
         await this.delay(1000);
         this.openScanner();
-        
     })(); 
     }
 }

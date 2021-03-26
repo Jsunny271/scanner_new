@@ -1,13 +1,6 @@
 .resultantContainer{
     background:white;
     padding: 3.5em;
-    width: 40%;
-    position: fixed;
-    height: 60%;
-    left: 50%;
-    margin-left: -25vw;
-    border-radius: 20px;
-    box-shadow: 5px 10px lightgrey;
     vertical-align: auto;
     margin-top: 2%;
 }
