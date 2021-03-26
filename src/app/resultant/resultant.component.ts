@@ -23,7 +23,7 @@ export class ResultantComponent implements OnInit {
       this.outputView=this.sharedService.getMessage().resultData;
       console.log(this.sharedService.getMessage().camSharedData);
       console.log(this.sharedService.getMessage().camSharedValue);
-      await this.delay(3000);
+      await this.delay(2000);
       // Do something after
       console.log('after delay')
         this.router.navigate(['/qrscanner']);
