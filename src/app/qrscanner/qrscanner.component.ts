@@ -3,6 +3,7 @@ import { QrScannerComponent } from 'angular2-qrscanner';
 import { Router } from "@angular/router";
 import { SharedService } from "../shared/shared.service";
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-qrscanner',
@@ -23,6 +24,12 @@ export class QrscannerComponent implements OnInit {
       camSharedData:0,
       camSharedValue:"",
       resultData:""
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event) {
+    console.log('Back button pressed');
+   // window.location.href="https://www.google.com";
   }
 
   @ViewChild(QrScannerComponent, { static : false }) qrScannerComponent: QrScannerComponent ;
