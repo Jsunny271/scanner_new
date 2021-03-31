@@ -1,2 +1,32 @@
-
-<router-outlet> </router-outlet>
+<div>
+    <h2>BOSCH Go!</h2>
+    <hr>
+    </div>
+<div *ngIf="goTo">
+<div *ngIf="changeCameraView" class="qrContainer" >
+    <div class="contain">
+        <qr-scanner
+                [debug]="true"
+                [canvasWidth]=canvasW
+                [canvasHeight]=canvasH
+                [stopAfterScan]="false" 
+                [updateTime]="500"
+                id="qscan"
+                > 
+        </qr-scanner>
+        <button (click)="changeCam()" id="changeCam">Change</button>
+        <h4>{{resultView}}</h4>
+    </div>
+        
+        </div>
+    
+    <div *ngIf="!changeCameraView" class="qrContainer">
+         <h3>Please wait...</h3>
+    </div>
+</div>
+<div *ngIf="!goTo" class="resultantContainer">  
+    <p>Result :-</p> 
+    <h4>{{outputView}}</h4>
+    <button (click)="scanAgain()" id="scanAgain">Scan Again</button>
+    </div>
+<router-outlet></router-outlet>    
