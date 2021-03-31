@@ -16,7 +16,7 @@
     width: 37px;
     text-align: center;
     padding: 10px;
-    margin-top: 20vh;
+    margin-top: 15vh;
     margin-left: -20vw;
     background-image: url("/assets/images/baseline_flip_camera_ios_black_18dp.png");
     background-color: white;
@@ -43,7 +43,7 @@ hr{
 
 h4{
     margin-top: 2vh;
-    margin-left: -25vw;
+    margin-left: -30vw;
     font-size: 30px;
     width: 100vw;
     text-align: center;

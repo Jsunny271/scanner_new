@@ -132,9 +132,9 @@ export class AppComponent implements OnInit {
     }
 
     callError(){
-      var errIndex=(Math.floor(Math.random() * (5 - 0 + 1) + 0));  // (max-min+1)+min
-      console.log(errIndex);
-      this.resultView=this.coolError[errIndex];
+     // var errIndex=(Math.floor(Math.random() * (5 - 0 + 1) + 0));  // (max-min+1)+min
+     // console.log(errIndex);
+      this.resultView="Invalid";
 
     }
 
