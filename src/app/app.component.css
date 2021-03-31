@@ -43,8 +43,10 @@ hr{
 
 h4{
     margin-top: 2vh;
-    margin-left: 12vw;
+    margin-left: -25vw;
     font-size: 30px;
+    width: 100vw;
+    text-align: center;
 }
 
 .resultantContainer{

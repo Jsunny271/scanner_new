@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
   canvasW:any;
   canvasH:any;  
   arrayValid=["ULS2KOR-Sunny","AAA4BAN-Aakanksha","AakankshaSunny","SunnyMalik-ULS2KOR"];
+  coolError=["OOps Invaid !","Whoops! we can't find you","Invalid!","Try Again!","Better luck next time!",
+             "Unauthorized!"]
   resultView:any;
   outputView:any;
   changeCameraView:boolean=true;
@@ -98,7 +100,7 @@ export class AppComponent implements OnInit {
             }
         }
         if(this.resultView==""){
-            this.resultView="Invalid";
+            this.callError();
         }else{
           this.outputView=result;
           this.goTo=false;
@@ -127,6 +129,13 @@ export class AppComponent implements OnInit {
         await this.delay(500);
         this.openScanner();
     })(); 
+    }
+
+    callError(){
+      var errIndex=(Math.floor(Math.random() * (5 - 0 + 1) + 0));  // (max-min+1)+min
+      console.log(errIndex);
+      this.resultView=this.coolError[errIndex];
+
     }
 
 // The above part is all about scanning the qr-code and the below one to show the output
