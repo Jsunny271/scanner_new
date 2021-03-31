@@ -1,7 +1,6 @@
 import {Component, ViewChild, ViewEncapsulation, OnInit} from '@angular/core';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { Router } from "@angular/router";
-import { SharedService } from "./shared/shared.service";
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { HostListener } from '@angular/core';
 
@@ -22,11 +21,6 @@ export class AppComponent implements OnInit {
   changeCameraView:boolean=true;
   changeCamera=1;
   camVal1='environment';
-  sharedValues={
-      camSharedData:0,
-      camSharedValue:"",
-      resultData:""
-  }
   goTo:boolean=true;
 
   @HostListener('window:popstate', ['$event'])
@@ -37,7 +31,7 @@ export class AppComponent implements OnInit {
 
   @ViewChild(QrScannerComponent, { static : false }) qrScannerComponent: QrScannerComponent ;
 
-  constructor(public router:Router,public sharedService:SharedService, private deviceDetector:DeviceDetectorService){}
+  constructor(public router:Router, private deviceDetector:DeviceDetectorService){}
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 } 
