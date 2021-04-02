@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
   changeCamera=1;
   camVal1='environment';
   goTo:boolean=true;
+  goToSubDiv:boolean=true;
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
@@ -106,10 +107,6 @@ export class AppComponent implements OnInit {
           this.goTo=false;
           this.callThread();
         }
-        (async () => { 
-            await this.delay(1000);
-            this.resultView="";
-        })(); 
     });
     }
 
@@ -134,7 +131,10 @@ export class AppComponent implements OnInit {
     callError(){
      // var errIndex=(Math.floor(Math.random() * (5 - 0 + 1) + 0));  // (max-min+1)+min
      // console.log(errIndex);
+      this.goTo=false;
+      this.goToSubDiv=false;
       this.resultView="Invalid";
+      this.callThread();
 
     }
 
@@ -150,9 +150,10 @@ callThread(){
     console.log('before delay')
     await this.delay(1500);
     console.log('after delay')
-    this.goTo=true;
+  //  this.goTo=true;
+  //  this.goToSubDiv=true;
     await this.delay(500);
-    this.openScanner();
+  //  this.openScanner();
 })(); 
 }
 

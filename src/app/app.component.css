@@ -56,6 +56,18 @@ h4{
     margin-top: 2%;
 }
 
+#invalidImg{
+    width: 25vw;
+    height: 20vh;
+    margin-left: 10vw;
+    background-image: url("/assets/images/invalid.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    
+}
+
 #scanAgain{
     width: 100px;
     text-align: center;
