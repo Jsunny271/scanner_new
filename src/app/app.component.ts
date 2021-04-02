@@ -150,10 +150,10 @@ callThread(){
     console.log('before delay')
     await this.delay(1500);
     console.log('after delay')
-  //  this.goTo=true;
-  //  this.goToSubDiv=true;
+    this.goTo=true;
+    this.goToSubDiv=true;
     await this.delay(500);
-  //  this.openScanner();
+    this.openScanner();
 })(); 
 }
 
