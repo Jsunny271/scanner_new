@@ -36,6 +36,8 @@ h2{
 hr{
     background-image: url("/assets/images/index.png");
     background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
     height: 12px;
     margin-left: -1vw;
     margin-right: -1vw;
