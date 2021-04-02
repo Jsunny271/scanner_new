@@ -43,10 +43,11 @@ hr{
 
 h4{
     margin-top: 2vh;
-    margin-left: -30vw;
-    font-size: 30px;
     width: 100vw;
+    margin-left: -20vw;
+    font-size: 26px;
     text-align: center;
+    float: left;
 }
 
 .resultantContainer{
@@ -58,14 +59,12 @@ h4{
 
 #invalidImg{
     width: 25vw;
-    height: 21vh;
-    margin-left: 10vw;
+    height: 25vw;
+    margin-left: 15vw;
     background-image: url("/assets/images/invalid.png");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
-
-    
+    background-position: center;    
 }
 
 #scanAgain{
