@@ -26,13 +26,14 @@
 <div *ngIf="!goTo" class="resultantContainer">
     <div *ngIf="goToSubDiv">  
     <p id="welcomeP">Welcome</p>    
-    <div id="welcomeImg"></div>
+    <div id="welcomeImg">
     <button (click)="scanAgain()" id="scanAgain">Scan Again</button>
+    </div>
     </div>
 
 <div *ngIf="!goToSubDiv">
     <div id="invalidImg">  </div>
-    <h4>{{resultView}}</h4>
+    <p id="invalidP">{{resultView}}</p>
     </div>
 
     </div>
