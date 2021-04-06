@@ -1,3 +1,8 @@
+#mainContainer{
+    width: 100%;
+    height: 100% 
+    
+}
 .qrContainer{
     background:white;
     width: 100%;
@@ -69,12 +74,31 @@ h4{
     background-position: center;    
 }
 
+#welcomeImg{
+    width: 200px;
+    height: 200px;
+    margin-left: 12vw;
+    background-image: url("/assets/images/welcome1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;    
+}
+
+#welcomeP{
+    margin-left: 17vw;
+    padding: 2vw;
+    font-size: 25px;
+    margin-top: -5vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: bold;
+}
+
 #scanAgain{
     width: 100px;
     text-align: center;
     text-shadow: black;
     margin-top: 10%;
-    margin-left: 10vw;
+    margin-left: 20vw;
     background-color:lightskyblue;
     height: 40px;
     font-size: 13px;

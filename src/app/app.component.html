@@ -2,7 +2,7 @@
     <h2>BOSCH Go!</h2>
     <hr>
     </div>
-<div *ngIf="goTo">
+<div id="mainContainer" *ngIf="goTo">
 <div *ngIf="changeCameraView" class="qrContainer" >
     <div class="contain">
         <qr-scanner
@@ -25,8 +25,8 @@
 </div>
 <div *ngIf="!goTo" class="resultantContainer">
     <div *ngIf="goToSubDiv">  
-    <p>Result :-</p> 
-    <p id="outtputView">{{outputView}}</p>
+    <p id="welcomeP">Welcome</p>    
+    <div id="welcomeImg"></div>
     <button (click)="scanAgain()" id="scanAgain">Scan Again</button>
     </div>
 

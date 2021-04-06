@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   deviceInfo:any;  
   canvasW:any;
   canvasH:any;  
-  arrayValid=["ULS2KOR-Sunny","AAA4BAN-Aakanksha","AakankshaSunny","SunnyMalik-ULS2KOR"];
+  arrayValid=["ULS2KOR-Sunny","AAA4BAN-Aakanksha","AakankshaSunny","SunnyMalik-ULS2KOR","EED1COB","UKR5COB","VV1KOR"];
   coolError=["OOps Invaid !","Whoops! we can't find you","Invalid!","Try Again!","Better luck next time!",
              "Unauthorized!"]
   resultView:any;
@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
         }else{
           this.outputView=result;
           this.goTo=false;
-          this.callThread();
+        //  this.callThread();
         }
     });
     }
