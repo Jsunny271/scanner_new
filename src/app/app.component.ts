@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
         }else{
           this.outputView=result;
           this.goTo=false;
-        //  this.callThread();
+          this.callThread();
         }
     });
     }
@@ -142,6 +142,7 @@ export class AppComponent implements OnInit {
 
 scanAgain(){
   this.goTo=true;
+  this.callThread()
 }
 
 callThread(){
