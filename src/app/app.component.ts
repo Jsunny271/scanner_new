@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   canvasH:any;  
   arrayValid=["ULS2KOR-Sunny","AAA4BAN-Aakanksha","AakankshaSunny","SunnyMalik-ULS2KOR","EED1COB","UKR5COB","VV1KOR"];
   coolError=["OOps Invaid !","Whoops! we can't find you","Invalid!","Try Again!","Better luck next time!",
-             "Unauthorized!"]
+             "Unauthorized!"];
   resultView:any;
   outputView:any;
   changeCameraView:boolean=true;
@@ -149,7 +149,7 @@ callThread(){
   (async () => { 
     // Do something before delay
     console.log('before delay')
-    await this.delay(1500);
+    await this.delay(3000);
     console.log('after delay')
     this.goTo=true;
     this.goToSubDiv=true;
