@@ -3,6 +3,7 @@ import { QrScannerComponent } from 'angular2-qrscanner';
 import { Router } from "@angular/router";
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { HostListener } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -29,12 +30,13 @@ export class AppComponent implements OnInit {
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
     console.log('Back button pressed');
-   // window.location.href="https://www.google.com";
+   // window.location.href="https://www.google.com" true;
   }
 
   @ViewChild(QrScannerComponent, { static : false }) qrScannerComponent: QrScannerComponent ;
 
-  constructor(public router:Router, private deviceDetector:DeviceDetectorService){}
+  constructor(public router:Router, private deviceDetector:DeviceDetectorService
+             ,private http:HttpClient){}
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 } 
@@ -92,22 +94,18 @@ export class AppComponent implements OnInit {
     this.qrScannerComponent.capturedQr.subscribe(result => {
         var i=0;
         console.log(result);
-        for(i=0;i<this.arrayValid.length;i++){
-            if(result==this.arrayValid[i]){
-                this.resultView="Valid"
-                break;
-            }else{
-                this.resultView="";
-            }
-        }
-        if(this.resultView==""){
-            this.callError();
-        }else{
-          this.outputView=result;
+        this.makeAPIcall(result);
+    });
+    }
+
+    callValidInvalidAPI(finalResult){
+      if(finalResult=="valid"){
           this.goTo=false;
           this.callThread();
-        }
-    });
+      }
+      else{
+        this.callError();
+      }
     }
 
     changeCam(){
@@ -148,14 +146,28 @@ scanAgain(){
 callThread(){
   (async () => { 
     // Do something before delay
-    console.log('before delay')
+ //   console.log('before delay')
     await this.delay(3000);
-    console.log('after delay')
+//    console.log('after delay')
     this.goTo=true;
     this.goToSubDiv=true;
     await this.delay(500);
     this.openScanner();
 })(); 
+}
+
+makeAPIcall(codeResult){
+  this.http.get('/api/getData/',{params:{ID:codeResult}}).subscribe((response)=>{
+    console.log("response from api ",response);
+    if(JSON.stringify(response)==JSON.stringify({val:"valid"})){
+      this.callValidInvalidAPI("valid")
+    }
+    else{
+      this.callValidInvalidAPI("Invalid");
+    }
+  },(error)=>{
+    console.log("Error is ",error);
+  })
 }
 
 }
