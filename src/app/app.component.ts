@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { HostListener } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -36,11 +37,12 @@ export class AppComponent implements OnInit {
   @ViewChild(QrScannerComponent, { static : false }) qrScannerComponent: QrScannerComponent ;
 
   constructor(public router:Router, private deviceDetector:DeviceDetectorService
-             ,private http:HttpClient){}
+             ,private http:HttpClient,private titleService:Title){}
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 } 
   ngOnInit() {
+    this.titleService.setTitle("Smart Shopping");
     this.goTo=true;
      this.deviceInfo=this.deviceDetector.getDeviceInfo();
      const isMobile = this.deviceDetector.isMobile();
