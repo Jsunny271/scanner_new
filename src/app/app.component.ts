@@ -3,7 +3,7 @@ import { QrScannerComponent } from 'angular2-qrscanner';
 import { Router } from "@angular/router";
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { HostListener } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+//import { HttpClient } from "@angular/common/http";
 import { Title } from "@angular/platform-browser";
 
 @Component({
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   @ViewChild(QrScannerComponent, { static : false }) qrScannerComponent: QrScannerComponent ;
 
   constructor(public router:Router, private deviceDetector:DeviceDetectorService
-             ,private http:HttpClient,private titleService:Title){}
+             ,/*private http:HttpClient,*/private titleService:Title){}
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 } 
@@ -165,7 +165,7 @@ callThread(){
 }
 
 makeAPIcall(codeResult){
-  this.http.get('/api/getData/',{params:{ID:codeResult}}).subscribe((response)=>{
+ /* this.http.get('/api/getData/',{params:{ID:codeResult}}).subscribe((response)=>{
     console.log("response from api ",response);
     if(JSON.stringify(response)==JSON.stringify({val:"valid"})){
       this.callValidInvalidAPI("valid")
@@ -176,6 +176,7 @@ makeAPIcall(codeResult){
   },(error)=>{
     console.log("Error is ",error);
   })  
+  */
 }
 
 }
