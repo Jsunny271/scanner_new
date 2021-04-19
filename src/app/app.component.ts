@@ -42,6 +42,11 @@ export class AppComponent implements OnInit {
     return new Promise( resolve => setTimeout(resolve, ms) );
 } 
   ngOnInit() {
+   /* this.http.get('https://api.openweathermap.org/data/2.5/weather?q=Shamli&appid=1de1919045fb45b62a6bb665f6dbbfd7').subscribe((response)=>{
+      console.log("response from api ",response);
+    },(error)=>{
+      console.log("Error is ",error);
+    })*/
     this.titleService.setTitle("Smart Shopping");
     this.goTo=true;
      this.deviceInfo=this.deviceDetector.getDeviceInfo();
@@ -57,7 +62,9 @@ export class AppComponent implements OnInit {
         this.canvasH="480";
      }
      else if(isTablet==true){
-
+       this.canvasW="680";
+       this.canvasH="540"
+         
      }else{
         this.canvasW="1080";
         this.canvasH="720";
@@ -94,7 +101,6 @@ export class AppComponent implements OnInit {
     });
 
     this.qrScannerComponent.capturedQr.subscribe(result => {
-        var i=0;
         console.log(result);
         this.makeAPIcall(result);
     });
@@ -169,7 +175,7 @@ makeAPIcall(codeResult){
     }
   },(error)=>{
     console.log("Error is ",error);
-  })
+  })  
 }
 
 }
