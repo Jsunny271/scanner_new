@@ -1,45 +1,42 @@
 <head>
-    
+
 </head>
 <div>
     <h2>BOSCH Go!</h2>
     <hr>
-    </div>
+</div>
 <div id="mainContainer" *ngIf="goTo">
-<div *ngIf="changeCameraView" class="qrContainer" >
-    <div class="contain">
-        <qr-scanner
-                [debug]="true"
-                [canvasWidth]=canvasW
-                [canvasHeight]=canvasH
-                [stopAfterScan]="false" 
-                [updateTime]="500"
-                id="qscan"
-                > 
-        </qr-scanner>
-        <p id="scanNote">*Scan your QR code</p>
-        <button (click)="changeCam()" id="changeCam"></button>
-    </div>
-        
+    <div *ngIf="changeCameraView" class="qrContainer">
+        <div class="contain">
+            <qr-scanner [debug]="true" [canvasWidth]=canvasW [canvasHeight]=canvasH [stopAfterScan]="false"
+                [updateTime]="500" id="qscan">
+            </qr-scanner>
+            <div>
+                <input type="text" #userIDText id="userTextId" placeholder="Enter userID..." />
+                <button (click)="sendMannual(userIDText.value)" id="mannualSend">Send</button>
+            </div>
+            <button (click)="changeCam()" id="changeCam"></button>
         </div>
-    
+
+    </div>
+
     <div *ngIf="!changeCameraView" class="qrContainer">
-         <h3>Please wait...</h3>
+        <h3>Please wait...</h3>
     </div>
 </div>
 <div *ngIf="!goTo" class="resultantContainer">
-    <div *ngIf="goToSubDiv">  
-    <p id="welcomeP">Welcome</p>    
-    <div id="welcomeImg">
-    <button (click)="scanAgain()" id="scanAgain">Scan Again</button>
-    </div>
-    </div>
-
-<div *ngIf="!goToSubDiv">
-    <div id="invalidImg">  </div>
-    <p id="invalidP">{{resultView}}</p>
+    <div *ngIf="goToSubDiv">
+        <p id="welcomeP">{{topText}}</p>
+        <div id="welcomeImg">
+            <button (click)="scanAgain()" id="scanAgain">Scan Again</button>
+        </div>
     </div>
 
+    <div *ngIf="!goToSubDiv">
+        <div id="invalidImg"> </div>
+        <p id="invalidP">{{resultView}}</p>
     </div>
 
-<router-outlet></router-outlet>   
+</div>
+
+<router-outlet></router-outlet>
