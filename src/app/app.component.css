@@ -128,16 +128,36 @@ h4{
     bottom: 0;
 }
 
+#scanAgain2{
+    width: 100px;
+    text-align: center;
+    text-shadow: black;
+    background-color:lightskyblue;
+    height: 40px;
+    font-size: 13px;
+    border-radius: 10px;
+    margin:auto;
+    margin-top: 420px;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    bottom: 0;
+}
+
 #userTextId{
    margin-top:20px;
    border-radius: 10px;
    font-size: 2.5vh;
    width: 20vw;
    height: 5vh;
+   outline: none;
 }
 
 #mannualSend{
     width: 55px;
     height: 6vh;
     border-radius: 10px;
+    outline: none;
+    margin-left: 10px;
 }

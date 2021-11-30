@@ -17,17 +17,13 @@ export class AppComponent implements OnInit {
   deviceInfo: any;
   canvasW: any;
   canvasH: any;
-  arrayValid = ["ULS2KOR-Sunny", "AAA4BAN-Aakanksha", "AakankshaSunny", "SunnyMalik-ULS2KOR", "EED1COB", "UKR5COB", "VV1KOR"];
-  coolError = ["OOps Invaid !", "Whoops! we can't find you", "Invalid!", "Try Again!", "Better luck next time!",
-    "Unauthorized!"];
-  resultView: any;
-  outputView: any;
-  topText = "";
+  topText = "Invalid";
   changeCameraView: boolean = true;
   changeCamera = 1;
   camVal1 = 'environment';
   goTo: boolean = true;
   goToSubDiv: boolean = true;
+  waiting: boolean =true
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
@@ -43,7 +39,7 @@ export class AppComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   ngOnInit() {
-    this.titleService.setTitle("Smart Shopping");
+    this.titleService.setTitle("Entry Smart Shop");
     this.goTo = true;
     this.deviceInfo = this.deviceDetector.getDeviceInfo();
     const isMobile = this.deviceDetector.isMobile();
@@ -98,7 +94,10 @@ export class AppComponent implements OnInit {
 
     this.qrScannerComponent.capturedQr.subscribe(result => {
       console.log(result);
+      if(this.waiting){
+        this.waiting=false
       this.makeAPIcall(result);
+      }
     });
   }
 
@@ -111,6 +110,7 @@ export class AppComponent implements OnInit {
     else {
       this.callError();
     }
+    this.waiting=true
   }
 
   changeCam() {
@@ -124,19 +124,16 @@ export class AppComponent implements OnInit {
       this.camVal1 = 'environment';
     }
     (async () => {
-      await this.delay(500);
+      await this.delay(200);
       this.changeCameraView = true;
-      await this.delay(500);
+      await this.delay(200);
       this.openScanner();
     })();
   }
 
   callError() {
-    // var errIndex=(Math.floor(Math.random() * (5 - 0 + 1) + 0));  // (max-min+1)+min
-    // console.log(errIndex);
     this.goTo = false;
     this.goToSubDiv = false;
-    this.resultView = "Invalid";
     this.callThread();
 
   }
@@ -156,7 +153,7 @@ export class AppComponent implements OnInit {
       //    console.log('after delay')
       this.goTo = true;
       this.goToSubDiv = true;
-      await this.delay(500);
+      await this.delay(100);
       this.openScanner();
     })();
   }
@@ -164,31 +161,55 @@ export class AppComponent implements OnInit {
   sendMannual(idText) {
     console.log(idText);
     if (idText != "")
+      // this.callValidInvalidAPI("Invalid")
       this.makeAPIcall(idText);
   }
 
+
   makeAPIcall(codeResult) {
-    // this.http.get('/api/getData/',{params:{ID:codeResult}}).subscribe((response:any)=>{
-    var response = {
-      res: true,
-      checkIn: "out"
-    }
-    console.log("response from api ", response);
-    if (response.res == true) {
-      if (response.checkIn == "out") {
-        this.topText = "Welcome"
-      } else {
-        this.topText = "Thankyou for Shopping! Visit Again :)"
+    this.http.post('https://20.204.68.132:8090/users/validate', { "userid": codeResult }).subscribe(async(response: any) => {
+      console.log("response from api ", response);
+      console.log(response.result.res)
+      if (response.result.res == "true" || response.result.res == true) {
+        //HAVE TO CHECK IN THE USER HERE
+        //AND THEN SHOW WELCOME PAGE
+        console.log("started")
+      this.http.post('https://20.204.68.132:8090/users/checkin', { "userid": codeResult }).subscribe(async(responseCheckin: any) => {
+          console.log("response from api ", responseCheckin)
+          if (responseCheckin.result.res == "true" || responseCheckin.result.res ==true){
+        //    this.sendDataToAzure(codeResult)
+            this.callValidInvalidAPI("valid")
+          }
+          else {
+            // throw exception //NEEDS TO BE DISCUSSED.
+            this.topText = "Server Error! Try Again"
+            this.callValidInvalidAPI("Invalid");
+          }
+        })
       }
-      this.callValidInvalidAPI("valid")
-    }
-    else {
+      else {
+        //WOULD HAVE TO UPDATE HTML AND SHOW
+        //USER NOT VALID. LETS SEE
+        this.topText = "User not Found! "
+        this.callValidInvalidAPI("Invalid");
+      }
+    }, (error) => {
+      this.topText = "Server Error! Try Again"
       this.callValidInvalidAPI("Invalid");
-    }
-    /* },(error)=>{
-       console.log("Error is ",error);
-     })  */
+      console.log("Error is ", error);
+    })
 
   }
+
+   sendDataToAzure(userid){
+     return new Promise((resolve,reject)=>{
+    var date =  Date.now()
+    console.log(date)
+    this.http.post('https://20.204.68.132:8090/users/sendqrtoqueue', { "userid": userid,"timestamp":date }).subscribe((responseCheckin: any) => {
+      console.log("response from api ", responseCheckin) 
+      resolve(true);
+    })
+  })
+   }
 
 }

@@ -2,7 +2,7 @@
 
 </head>
 <div>
-    <h2>BOSCH Go!</h2>
+    <h2>BOSCH</h2>
     <hr>
 </div>
 <div id="mainContainer" *ngIf="goTo">
@@ -15,6 +15,7 @@
                 <input type="text" #userIDText id="userTextId" placeholder="Enter userID..." />
                 <button (click)="sendMannual(userIDText.value)" id="mannualSend">Send</button>
             </div>
+            
             <button (click)="changeCam()" id="changeCam"></button>
         </div>
 
@@ -24,9 +25,11 @@
         <h3>Please wait...</h3>
     </div>
 </div>
+
+
 <div *ngIf="!goTo" class="resultantContainer">
     <div *ngIf="goToSubDiv">
-        <p id="welcomeP">{{topText}}</p>
+        <p id="welcomeP">Welcome</p>
         <div id="welcomeImg">
             <button (click)="scanAgain()" id="scanAgain">Scan Again</button>
         </div>
@@ -34,7 +37,8 @@
 
     <div *ngIf="!goToSubDiv">
         <div id="invalidImg"> </div>
-        <p id="invalidP">{{resultView}}</p>
+        <p id="invalidP">{{topText}}</p>
+        <button (click)="scanAgain()" id="scanAgain2">Scan Again</button>
     </div>
 
 </div>
