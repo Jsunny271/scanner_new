@@ -6,6 +6,7 @@ import { HostListener } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Title } from "@angular/platform-browser";
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit {
   camVal1 = 'environment';
   goTo: boolean = true;
   goToSubDiv: boolean = true;
-  waiting: boolean =true
+  waiting: boolean = true
+  welcomeResult: any
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
@@ -40,6 +42,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     this.titleService.setTitle("Entry Smart Shop");
+    console.log("Enter to Smart shop")
     this.goTo = true;
     this.deviceInfo = this.deviceDetector.getDeviceInfo();
     const isMobile = this.deviceDetector.isMobile();
@@ -54,8 +57,8 @@ export class AppComponent implements OnInit {
       this.canvasH = "480";
     }
     else if (isTablet == true) {
-      this.canvasW = "680";
-      this.canvasH = "540"
+      this.canvasW = "1080";
+      this.canvasH = "720"
 
     } else {
       this.canvasW = "1080";
@@ -94,15 +97,16 @@ export class AppComponent implements OnInit {
 
     this.qrScannerComponent.capturedQr.subscribe(result => {
       console.log(result);
-      if(this.waiting){
-        this.waiting=false
-      this.makeAPIcall(result);
+      if (this.waiting) {
+        this.waiting = false
+        this.makeAPIcall(result);
       }
     });
   }
 
-  callValidInvalidAPI(finalResult) {
+  callValidInvalidShowMethod(finalResult, codeResult) {
     if (finalResult == "valid") {
+      this.welcomeResult = codeResult
       this.goTo = false;
       this.goToSubDiv = true;
       this.callThread();
@@ -110,7 +114,7 @@ export class AppComponent implements OnInit {
     else {
       this.callError();
     }
-    this.waiting=true
+    this.waiting = true
   }
 
   changeCam() {
@@ -167,49 +171,54 @@ export class AppComponent implements OnInit {
 
 
   makeAPIcall(codeResult) {
-    this.http.post('https://20.204.68.132:8090/users/validate', { "userid": codeResult }).subscribe(async(response: any) => {
+    this.http.post('https://20.204.68.132:8090/users/validate', { "userid": codeResult }).subscribe(async (response: any) => {
       console.log("response from api ", response);
-      console.log(response.result.res)
       if (response.result.res == "true" || response.result.res == true) {
-        //HAVE TO CHECK IN THE USER HERE
-        //AND THEN SHOW WELCOME PAGE
-        console.log("started")
-      this.http.post('https://20.204.68.132:8090/users/checkin', { "userid": codeResult }).subscribe(async(responseCheckin: any) => {
+        this.callValidInvalidShowMethod("valid", codeResult)
+        this.http.post('https://20.204.68.132:8090/users/checkin', { "userid": codeResult }).subscribe(async (responseCheckin: any) => {
           console.log("response from api ", responseCheckin)
-          if (responseCheckin.result.res == "true" || responseCheckin.result.res ==true){
-        //    this.sendDataToAzure(codeResult)
-            this.callValidInvalidAPI("valid")
+          if (responseCheckin.result.res == "true" || responseCheckin.result.res == true) {
+            //    this.sendDataToAzure(codeResult)
+            this.sendDataToLocalDB(codeResult)
           }
           else {
             // throw exception //NEEDS TO BE DISCUSSED.
             this.topText = "Server Error! Try Again"
-            this.callValidInvalidAPI("Invalid");
+           // this.callValidInvalidShowMethod("Invalid", codeResult);
           }
         })
       }
       else {
-        //WOULD HAVE TO UPDATE HTML AND SHOW
-        //USER NOT VALID. LETS SEE
         this.topText = "User not Found! "
-        this.callValidInvalidAPI("Invalid");
+        this.callValidInvalidShowMethod("Invalid", codeResult);
       }
     }, (error) => {
       this.topText = "Server Error! Try Again"
-      this.callValidInvalidAPI("Invalid");
+      this.callValidInvalidShowMethod("Invalid", codeResult);
       console.log("Error is ", error);
     })
-
   }
 
-   sendDataToAzure(userid){
-     return new Promise((resolve,reject)=>{
-    var date =  Date.now()
-    console.log(date)
-    this.http.post('https://20.204.68.132:8090/users/sendqrtoqueue', { "userid": userid,"timestamp":date }).subscribe((responseCheckin: any) => {
-      console.log("response from api ", responseCheckin) 
-      resolve(true);
+  sendDataToLocalDB(userid) {
+    return new Promise((resolve, reject) => {
+      var date = Date.now()
+      console.log(date)
+      this.http.post('https://20.204.68.132:4321/addData', { "userid": userid, "timestamp": date }).subscribe((responseCheckin: any) => {
+        console.log("response from api ", responseCheckin)
+        resolve(true);
+      })
     })
-  })
-   }
+  }
+
+  sendDataToAzure(userid) {
+    return new Promise((resolve, reject) => {
+      var date = Date.now()
+      console.log(date)
+      this.http.post('https://20.204.68.132:8090/users/sendqrtoqueue', { "userid": userid, "timestamp": date }).subscribe((responseCheckin: any) => {
+        console.log("response from api ", responseCheckin)
+        resolve(true);
+      })
+    })
+  }
 
 }
