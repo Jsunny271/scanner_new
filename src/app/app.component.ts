@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
-    console.log('Back button pressed');
+    console.log('Back button pressed ');
     // window.location.href="https://www.google.com" true;
   }
 
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit() {
     this.titleService.setTitle("Entry Smart Shop");
-    console.log("Enter to Smart shop")
+    console.log("Enter to Smart shop.")
     this.goTo = true;
     this.deviceInfo = this.deviceDetector.getDeviceInfo();
     const isMobile = this.deviceDetector.isMobile();
@@ -57,8 +57,8 @@ export class AppComponent implements OnInit {
       this.canvasH = "480";
     }
     else if (isTablet == true) {
-      this.canvasW = "1080";
-      this.canvasH = "720"
+      this.canvasW = "520";
+      this.canvasH = "640"
 
     } else {
       this.canvasW = "1080";
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
 
   callValidInvalidShowMethod(finalResult, codeResult) {
     if (finalResult == "valid") {
-      this.welcomeResult = codeResult
+    //  this.welcomeResult = codeResult
       this.goTo = false;
       this.goToSubDiv = true;
       this.callThread();
@@ -172,17 +172,18 @@ export class AppComponent implements OnInit {
 
   makeAPIcall(codeResult) {
     this.http.post('https://20.204.68.132:8090/users/validate', { "userid": codeResult }).subscribe(async (response: any) => {
-      console.log("response from api ", response);
+     // console.log("response from api ", response);
       if (response.result.res == "true" || response.result.res == true) {
         this.callValidInvalidShowMethod("valid", codeResult)
+        this.welcomeResult=response.result.customerName
         this.http.post('https://20.204.68.132:8090/users/checkin', { "userid": codeResult }).subscribe(async (responseCheckin: any) => {
-          console.log("response from api ", responseCheckin)
+      //    console.log("response from api ", responseCheckin)
           if (responseCheckin.result.res == "true" || responseCheckin.result.res == true) {
             //    this.sendDataToAzure(codeResult)
             this.sendDataToLocalDB(codeResult)
           }
           else {
-            // throw exception //NEEDS TO BE DISCUSSED.
+            // throw exception //NEEDS TO BE DISCUSSED.
             this.topText = "Server Error! Try Again"
            // this.callValidInvalidShowMethod("Invalid", codeResult);
           }
@@ -195,16 +196,16 @@ export class AppComponent implements OnInit {
     }, (error) => {
       this.topText = "Server Error! Try Again"
       this.callValidInvalidShowMethod("Invalid", codeResult);
-      console.log("Error is ", error);
+      console.log("Error is ", error);
     })
   }
 
   sendDataToLocalDB(userid) {
     return new Promise((resolve, reject) => {
       var date = Date.now()
-      console.log(date)
-      this.http.post('https://20.204.68.132:4321/addData', { "userid": userid, "timestamp": date }).subscribe((responseCheckin: any) => {
-        console.log("response from api ", responseCheckin)
+    //  console.log(date)
+      this.http.post('https://20.204.68.132:8090/users/addQREntryData', { "userid": userid, "timestamp": date }).subscribe((responseCheckin: any) => {
+    //    console.log("response from api", responseCheckin)
         resolve(true);
       })
     })
@@ -215,7 +216,7 @@ export class AppComponent implements OnInit {
       var date = Date.now()
       console.log(date)
       this.http.post('https://20.204.68.132:8090/users/sendqrtoqueue', { "userid": userid, "timestamp": date }).subscribe((responseCheckin: any) => {
-        console.log("response from api ", responseCheckin)
+        console.log("response from api ", responseCheckin)
         resolve(true);
       })
     })
