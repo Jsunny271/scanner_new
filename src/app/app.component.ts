@@ -30,7 +30,6 @@ export class AppComponent implements OnInit {
   @HostListener('window:popstate', ['$event'])
   onPopState(event) {
     console.log('Back button pressed ');
-    // window.location.href="https://www.google.com" true;
   }
 
   @ViewChild(QrScannerComponent, { static: false }) qrScannerComponent: QrScannerComponent;
